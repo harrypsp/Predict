@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">This is the Prediction Page</h1>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('results') }}" class="form-group">
+      <p class="lead">Upload Training Set Below:</p>
+      <div class="form-group">
+        <input type="file" name="training_dataset" />
+      </div>
+      <p class="lead">Upload Test Set Below:</p>
+      <div class="form-group">
+        <input type="file" name="dataset" />
+      </div>
+      <input type="submit" class="btn btn-outline-secondary" />
+      <input type="reset" value="Reset" class="btn btn-outline-secondary" />
+    </form>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>H. McElwee | w16021559 | h.mcelwee@northumbria.ac.uk</p>
+    </div>
+  </footer>
+{% endblock content %}
