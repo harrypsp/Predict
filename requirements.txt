@@ -1,0 +1,5 @@
+flask>=1.1.2
+werkzeug>=1.0.1
+pandas>=1.0.3
+scikit-learn>=0.22.1
+scipy>=0.17.0
