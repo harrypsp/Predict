@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">Results are shown below</h1>
+    <p class="lead">
+      {{ Result.to_html(classes="table table-dark table-striped table-hover",na_rep="-") | safe}}
+    </p>
+  </main>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>H. McElwee | w16021559 | h.mcelwee@northumbria.ac.uk</p>
+    </div>
+  </footer>
+{% endblock content %}
