@@ -190,7 +190,7 @@ def main(input_File, training_Input):
 
 
 app = Flask(__name__)
-app.config['UPLOADED_FILES_DEST'] = '/static/datasets'
+app.config['UPLOADED_FILES_DEST'] = '/antenv/lib/python3.7/site-packages/flask/static/datasets'
 
 
 @app.route('/')
