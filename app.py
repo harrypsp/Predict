@@ -215,8 +215,8 @@ def results():
             file.save(os.path.join(app.config["UPLOADED_FILES_DEST"], filename))
 
             # Machine Learning declaration
-            training_Input = os.path.join('static/datasets', train_filename)
-            input_File = os.path.join('static/datasets', filename)
+            training_Input = os.path.join(app.config["UPLOADED_FILES_DEST"], train_filename)
+            input_File = os.path.join(app.config["UPLOADED_FILES_DEST"], filename)
 
 
             prediction_Result, input_Types = main(input_File, training_Input)
