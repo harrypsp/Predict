@@ -249,8 +249,8 @@ def results():
             feature_Amount = int(feature_Amount)
             # model_select =
             # Machine Learning declaration
-            training_Input = os.path.join('static/datasets', train_filename)
-            input_File = os.path.join('static/datasets', filename)
+            training_Input = os.path.join(["UPLOADED_FILES_DEST"], train_filename)
+            input_File = os.path.join(["UPLOADED_FILES_DEST"], filename)
 
             try:
                 prediction_Result, input_Types, new_features, packets_Return, classifier_Accuracy = main(input_File, training_Input, learning_Method, feature_Amount)
