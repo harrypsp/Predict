@@ -1,14 +1,75 @@
 {% extends "layout.html" %}
 {% block content %}
+<style>
+#display {
+  display: none;
+  height: 500px;
+  overflow: scroll;
+  overflow-x: hidden;
+  text-align: center;
+}
+#display_Packets {
+  text-align: center;
+  display: none;
+  position: relative;
+  left: -400px;
+  width: 1400px;
+  overflow: scroll;
+}
+</style>
 <main role="main" class="inner cover">
     <h1 class="cover-heading">Results are shown below</h1>
     <p class="lead">
+      Model Selected: {{ model }}
+    </p>
+    <p class="lead">
+      Estimated Model Score: {{ model_Score }}%
+    </p>
+    <p class="lead">
       {{ Result.to_html(classes="table table-dark table-striped table-hover",na_rep="-") | safe}}
     </p>
+    <p class="lead">
+      See Features Used in Training?
+    </p>
+    <button onclick="displayFunction()" class="btn btn-outline-secondary">Click Here</button>
+    <br />
+    <br />
+    <div id="display">
+      {{ features_Used.to_html(classes="table table-dark table-striped table-hover",na_rep="-") | safe}}
+    </div>
+    <p class="lead">
+      See Bad Packets within Dataset?
+    </p>
+    <button onclick="displayFunction2()" class="btn btn-outline-secondary">Click Here</button>
+    <br />
+    <br />
+    <div id="display_Packets">
+      {{ packets_Analysis.to_html(classes="table table-dark table-striped table-hover",na_rep="-") | safe}}
+    </div>
   </main>
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>H. McElwee | w16021559 | h.mcelwee@northumbria.ac.uk</p>
     </div>
   </footer>
+  <script>
+  function displayFunction() {
+    var x = document.getElementById("display");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+  }
+  </script>
+  <script>
+  function displayFunction2() {
+    var x = document.getElementById("display_Packets");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+  }
+  </script>
 {% endblock content %}

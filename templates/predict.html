@@ -1,17 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
+<style>
+  .selectors {
+    float: left;
+    text-align: center;
+    margin: auto;
+  }
+  #feature {
+    margin-left: 5px;
+  }
+</style>
 <main role="main" class="inner cover">
     <h1 class="cover-heading">This is the Prediction Page</h1>
     <form method="POST" enctype="multipart/form-data" action="{{ url_for('results') }}" class="form-group">
+      <div class="radio">
+        <label><input class="selectors" type="radio" name="method_Select" value="K Nearest Neighbor" checked> K-NN</label>
+        <label><input class="selectors" type="radio" name="method_Select" value="Support Vector Machine"> SVM</label>
+      </div>
+      <div class="radio">
+        <label><input class="selectors" type="radio" name="method_Select" value="Naive Bayes">Naive Bayes</label>
+        <label><input class="selectors" type="radio" name="method_Select" value="Decision Tree"> Decision Tree</label>
+      </div>
+      <label>Amount of Features Desired:</label><input type="number" id="feature" name="feature_Amount" min="1" max="115" required>
       <p class="lead">Upload Training Set Below:</p>
       <div class="form-group">
-        <input type="file" name="training_dataset" />
+        <input type="file" name="training_dataset" id="file_upload" required>
       </div>
       <p class="lead">Upload Test Set Below:</p>
       <div class="form-group">
-        <input type="file" name="dataset" />
+        <input type="file" name="dataset" id="file_upload" required>
       </div>
-      <input type="submit" class="btn btn-outline-secondary" />
+      <input type="submit" onclick="spinny()" class="btn btn-outline-secondary" />
       <input type="reset" value="Reset" class="btn btn-outline-secondary" />
     </form>
   </main>
