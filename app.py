@@ -217,7 +217,7 @@ def main(input_File, training_Input, learning_Method, feature_Amount):
 app = Flask(__name__)
 
 # Defining where files will be uploaded
-app.config['UPLOADED_FILES_DEST'] = 'C:/Users/Harry_McElwee/Documents/Diss/Predict/static/datasets'
+app.config['UPLOADED_FILES_DEST'] = '/home/site/wwwroot/static/datasets'
 
 # Creating a home page
 @app.route('/')
