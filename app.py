@@ -31,6 +31,7 @@ def readDataset(path_to_dataset):
         return input_data
     else:
         print("File Type not Supported")
+
 # Pre Processor for datasets
 def preProcessing(dataset):
     df_one_hot_protocol_type = pd.get_dummies(dataset['protocol_type'])
@@ -49,13 +50,13 @@ def preProcessing(dataset):
 
     dataset = dataset.iloc[:, 4:42]
     dataset = pd.concat([df_one_hot_flag, dataset], axis=1) # Adds flag
-    del df_one_hot_flag
+
     dataset = pd.concat([df_one_hot_service, dataset], axis=1) # Adds service
-    del df_one_hot_service
+
     dataset = pd.concat([df_one_hot_protocol_type, dataset], axis=1) # Adds protocol
-    del df_one_hot_protocol_type
+
     dataset = pd.concat([df_duration, dataset], axis=1) # Adds duration
-    del df_duration
+
 
     return dataset
 
@@ -85,13 +86,6 @@ def training(training_Dataset, learning_Method, feature_Amount):
     new_features_for_training = new_features.iloc[:, :1]
     new_features_for_training = new_features_for_training.index.tolist()
 
-    # Removing any now redundant variables
-    del dfcolumns
-    del dfscores
-    del bestfeatures
-    del featureScores
-    del fit
-
     X = training_Dataset.iloc[:, new_features_for_training].values
 
     # Splitting the dataset into the Training set and Test set
@@ -102,19 +96,13 @@ def training(training_Dataset, learning_Method, feature_Amount):
     X_train = sc_X.fit_transform(X_train)
     X_test = sc_X.transform(X_test)
 
-    del sc_X
-
-
     # Fitting the Classifier to the training set
     if learning_Method == "Support Vector Machine":
-        classifier = SVC(kernel=linear)
+        classifier = SVC(kernel='rbf')
         print("SVM Selected")
     elif learning_Method == "Naive Bayes":
         classifier = GaussianNB()
         print("Naive Bayes Selected")
-    elif learning_Method == "Decision Tree":
-        classifier = DecisionTreeClassifier(criterion='entropy')
-        print("Decision Tree Selected")
     else:
         classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
         print("KNN Selected")
@@ -134,11 +122,6 @@ def training(training_Dataset, learning_Method, feature_Amount):
 
 
     # Removing prediction related variables
-    del X
-    del X_train
-    del X_test
-    del y_train
-    del y_test
 
     return classifier, classifier_Accuracy, new_features_for_training, new_features
 
@@ -175,9 +158,6 @@ def prediction(classifier, processed_Input, new_features_for_training, column_na
     packets_Return = processed_Input_Final
     packets_Return['label'] = result_decode
 
-    del naming_scheme
-    del columns
-
     return prediction_Result, packets_Return
 
 # Main Function which operates the program
@@ -196,10 +176,10 @@ def main(input_File, training_Input, learning_Method, feature_Amount):
 
     processed_Dataset = preProcessing(training_Dataset)
     print("Processing Training Data...")
-    del training_Dataset
+
     processed_Input = preProcessing(input_Dataset)
     print("Processing Input Data...")
-    del input_Dataset
+
 
     column_names = pd.DataFrame(data=None, columns=processed_Dataset.columns)
     label_names = pd.get_dummies(processed_Dataset['label'])
@@ -217,14 +197,14 @@ def main(input_File, training_Input, learning_Method, feature_Amount):
 app = Flask(__name__)
 
 # Defining where files will be uploaded
-app.config['UPLOADED_FILES_DEST'] = '/home/site/wwwroot/static/datasets'
+app.config['UPLOADED_FILES_DEST'] = 'C:/Users/Harry_McElwee/Documents/Diss/Predict/static/datasets'
 
 # Creating a home page
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html', title='Home')
-    # render_template will link to the templates folder 
+    # render_template will link to the templates folder
 
 # Creating a predict page
 @app.route('/predict', methods=["GET", "POST"])
@@ -249,8 +229,8 @@ def results():
             feature_Amount = int(feature_Amount)
             # model_select =
             # Machine Learning declaration
-            training_Input = os.path.join(["UPLOADED_FILES_DEST"], train_filename)
-            input_File = os.path.join(["UPLOADED_FILES_DEST"], filename)
+            training_Input = os.path.join('static/datasets', train_filename)
+            input_File = os.path.join('static/datasets', filename)
 
             try:
                 prediction_Result, input_Types, new_features, packets_Return, classifier_Accuracy = main(input_File, training_Input, learning_Method, feature_Amount)
